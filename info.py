@@ -3,13 +3,13 @@ from Script import script
 
 # 🚀 __Bot Configuration__
 SESSION = environ.get('SESSION', 'RexBots')  # Session name
-API_ID = int(environ.get('API_ID', '29483517'))
-API_HASH = environ.get('API_HASH', 'e35a05d338376cbcd8162f810aed878d')
-BOT_TOKEN = environ.get('BOT_TOKEN', '8480511759:AAEHhSJRxyUBGuKdpxVP8LGr_zmmrA5IpZE')
+API_ID = int(environ.get('API_ID', ''))
+API_HASH = environ.get('API_HASH', '')
+BOT_TOKEN = environ.get('BOT_TOKEN', '')
 
 # 👑 __Owner & Admins__
-ADMINS = [int(i) for i in environ.get('ADMINS', '5756495153').split()]
-AUTH_CHANNEL = [int(i) for i in environ.get("AUTH_CHANNEL", "-1002609565771").split()]
+ADMINS = [int(i) for i in environ.get('ADMINS', '').split()]
+AUTH_CHANNEL = [int(i) for i in environ.get("AUTH_CHANNEL", "").split()]
 OWNER_USERNAME = environ.get("OWNER_USERNAME", 'RexBots_Official')
 BOT_USERNAME = environ.get("BOT_USERNAME", 'RexBots_Official')
 
@@ -20,11 +20,11 @@ HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', 'https://t.me/RexBots_Official')
 HOW_TO_OPEN = environ.get('HOW_TO_OPEN', 'https://t.me/RexBots_Official')
 
 # 📢 __Log Channels__
-BIN_CHANNEL = int(environ.get("BIN_CHANNEL", '-1002527411757'))
-LOG_CHANNEL = int(environ.get("LOG_CHANNEL", '-1002741915396'))
-PREMIUM_LOGS = int(environ.get("PREMIUM_LOGS", '-1003174074383'))
-VERIFIED_LOG = int(environ.get('VERIFIED_LOG', '-1003174074383'))
-SUPPORT_GROUP = int(environ.get("SUPPORT_GROUP", "-1002306752308"))
+BIN_CHANNEL = int(environ.get("BIN_CHANNEL", ''))
+LOG_CHANNEL = int(environ.get("LOG_CHANNEL", '-'))
+PREMIUM_LOGS = int(environ.get("PREMIUM_LOGS", ''))
+VERIFIED_LOG = int(environ.get('VERIFIED_LOG', ''))
+SUPPORT_GROUP = int(environ.get("SUPPORT_GROUP", ""))
 
 # ✅ __Feature Toggles__
 VERIFY = False  # Enable user verification
@@ -42,7 +42,7 @@ SHORTLINK_URL = environ.get('SHORTLINK_URL', '')
 SHORTLINK_API = environ.get('SHORTLINK_API', '')
 
 # 💾 __Database Configuration__
-DB_URL = environ.get('DATABASE_URI', "mongodb+srv://user1:abhinai.2244@cluster0.7oaqx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+DB_URL = environ.get('DATABASE_URI', "")
 DB_NAME = environ.get('DATABASE_NAME', "rexlinkbot")
 
 # 📸 __Media & Images__
@@ -78,7 +78,7 @@ NO_PORT = str(environ.get("NO_PORT", "true")).lower() in ("true", "1", "yes")
 HAS_SSL = str(environ.get("HAS_SSL", "true")).lower() in ("true", "1", "yes")
 
 # URL Generation
-BIND_ADDRESS = environ.get("WEB_SERVER_BIND_ADDRESS", "abifiletolinktextbot-55650b33e769.herokuapp.com/")
+BIND_ADDRESS = environ.get("WEB_SERVER_BIND_ADDRESS", "")   ##without https:// paste the base url here 
 FQDN = environ.get("FQDN", BIND_ADDRESS)
 
 if not FQDN.startswith("http"):
