@@ -1,93 +1,86 @@
 from os import environ, getenv
 from Script import script
 
-# 🚀 __Bot Configuration__
-SESSION = environ.get('SESSION', 'RexBots')  # Session name
+# 🚀 Bot Configuration
+SESSION = environ.get('SESSION', 'FileToLinkBot')
 API_ID = int(environ.get('API_ID', ''))
 API_HASH = environ.get('API_HASH', '')
 BOT_TOKEN = environ.get('BOT_TOKEN', '')
 
-# 👑 __Owner & Admins__
-ADMINS = [int(i) for i in environ.get('ADMINS', '').split()]
-AUTH_CHANNEL = [int(i) for i in environ.get("AUTH_CHANNEL", "").split()]
-OWNER_USERNAME = environ.get("OWNER_USERNAME", 'RexBots_Official')
-BOT_USERNAME = environ.get("BOT_USERNAME", 'RexBots_Official')
+# 👑 Owner & Admins
+ADMINS = [int(i) for i in environ.get('ADMINS', '').split()] if environ.get('ADMINS') else []
+AUTH_CHANNEL = [int(i) for i in environ.get("AUTH_CHANNEL", "").split()] if environ.get("AUTH_CHANNEL") else []
+OWNER_USERNAME = environ.get("OWNER_USERNAME", '')
+BOT_USERNAME = environ.get("BOT_USERNAME", '')
 
-# 🔗 __Channel & Support Links__
-CHANNEL = environ.get('CHANNEL', 'https://t.me/RexBots_Official')
-SUPPORT = environ.get('SUPPORT', 'https://t.me/RexBots_Official')
-HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', 'https://t.me/RexBots_Official')
-HOW_TO_OPEN = environ.get('HOW_TO_OPEN', 'https://t.me/RexBots_Official')
+# 🔗 Channel & Support Links
+CHANNEL = environ.get('CHANNEL', '')
+SUPPORT = environ.get('SUPPORT', '')
 
-# 📢 __Log Channels__
-BIN_CHANNEL = int(environ.get("BIN_CHANNEL", ''))
-LOG_CHANNEL = int(environ.get("LOG_CHANNEL", '-'))
-PREMIUM_LOGS = int(environ.get("PREMIUM_LOGS", ''))
-VERIFIED_LOG = int(environ.get('VERIFIED_LOG', ''))
-SUPPORT_GROUP = int(environ.get("SUPPORT_GROUP", ""))
+# 📢 Log Channels (Simplified - only essential)
+BIN_CHANNEL = int(environ.get("BIN_CHANNEL", '0')) if environ.get("BIN_CHANNEL") else 0
+LOG_CHANNEL = int(environ.get("LOG_CHANNEL", '0')) if environ.get("LOG_CHANNEL") else 0
 
-# ✅ __Feature Toggles__
-VERIFY = False  # Enable user verification
-FSUB = environ.get("FSUB", True)  # Force Subscribe
-ENABLE_LIMIT = environ.get("ENABLE_LIMIT", True)
-BATCH_VERIFY = False
-IS_SHORTLINK = False
-MAINTENANCE_MODE = environ.get("MAINTENANCE_MODE", False)
-PROTECT_CONTENT = environ.get('PROTECT_CONTENT', False)
-PUBLIC_FILE_STORE = environ.get('PUBLIC_FILE_STORE', True)
-BATCH_PROTECT_CONTENT = environ.get('BATCH_PROTECT_CONTENT', False)
+# ✅ Feature Toggles (Simplified)
+VERIFY = False  # Disabled
+FSUB = environ.get("FSUB", "False").lower() == "true"  # Force Subscribe - optional
+ENABLE_LIMIT = False  # Disabled
+BATCH_VERIFY = False  # Disabled
+IS_SHORTLINK = False  # Disabled
+MAINTENANCE_MODE = False  # Disabled
+PROTECT_CONTENT = environ.get('PROTECT_CONTENT', "False").lower() == "true"
+PUBLIC_FILE_STORE = True  # Always enabled
+BATCH_PROTECT_CONTENT = False
 
-# 🔗 __Shortlink Configuration__
-SHORTLINK_URL = environ.get('SHORTLINK_URL', '')
-SHORTLINK_API = environ.get('SHORTLINK_API', '')
+# 🔗 Shortlink Configuration (Disabled)
+SHORTLINK_URL = ''
+SHORTLINK_API = ''
 
-# 💾 __Database Configuration__
+# 💾 Database Configuration
 DB_URL = environ.get('DATABASE_URI', "")
-DB_NAME = environ.get('DATABASE_NAME', "rexlinkbot")
+DB_NAME = environ.get('DATABASE_NAME', "filetolinkbot")
 
-# 📸 __Media & Images__
-QR_CODE = environ.get('QR_CODE', 'https://ibb.co/mVkSySr7')
-VERIFY_IMG = environ.get("VERIFY_IMG", "https://ibb.co/mVkSySr7")
-AUTH_PICS = environ.get('AUTH_PICS', 'https://ibb.co/mVkSySr7')
-PICS = environ.get('PICS', 'https://ibb.co/mVkSySr7')
-FILE_PIC = environ.get('FILE_PIC', 'https://ibb.co/mVkSySr7')
+# 📸 Media & Images (Optional)
+QR_CODE = environ.get('QR_CODE', '')
+VERIFY_IMG = environ.get("VERIFY_IMG", "")
+AUTH_PICS = environ.get('AUTH_PICS', '')
+PICS = environ.get('PICS', '')
+FILE_PIC = environ.get('FILE_PIC', '')
 
-# 📝 __Captions__
+# 📝 Captions
 FILE_CAPTION = environ.get('FILE_CAPTION', script.CAPTION)
 BATCH_FILE_CAPTION = environ.get('BATCH_FILE_CAPTION', script.CAPTION)
 CHANNEL_FILE_CAPTION = environ.get('CHANNEL_FILE_CAPTION', script.CAPTION)
 
-# ⏱️ __Time & Limits__
+# ⏱️ Time & Limits
 PING_INTERVAL = int(environ.get("PING_INTERVAL", 1200))
 SLEEP_THRESHOLD = int(environ.get('SLEEP_THRESHOLD', 60))
 RATE_LIMIT_TIMEOUT = int(environ.get("RATE_LIMIT_TIMEOUT", 600))
 MAX_FILES = int(environ.get("MAX_FILES", 50))
-VERIFY_EXPIRE = int(environ.get('VERIFY_EXPIRE', 60))  # Hours
 
-# ⚙️ __Worker & App Config__
+# ⚙️ Worker & App Config
 WORKERS = int(environ.get('WORKERS', 10))
 MULTI_CLIENT = False
-NAME = environ.get('name', 'rexbots_official')
+NAME = environ.get('name', 'filetolinkbot')
 
-# 🌐 __Web Server__
+# 🌐 Web Server
 ON_HEROKU = 'DYNO' in environ
 APP_NAME = environ.get('APP_NAME') if ON_HEROKU else None
 
-PORT = int(environ.get('PORT', 2626))
+PORT = int(environ.get('PORT', 8080))
 NO_PORT = str(environ.get("NO_PORT", "true")).lower() in ("true", "1", "yes")
 HAS_SSL = str(environ.get("HAS_SSL", "true")).lower() in ("true", "1", "yes")
 
 # URL Generation
-BIND_ADDRESS = environ.get("WEB_SERVER_BIND_ADDRESS", "")   ##without https:// paste the base url here 
+BIND_ADDRESS = environ.get("WEB_SERVER_BIND_ADDRESS", "")
 FQDN = environ.get("FQDN", BIND_ADDRESS)
 
-if not FQDN.startswith("http"):
+if FQDN and not FQDN.startswith("http"):
     PROTOCOL = "https" if HAS_SSL else "http"
     PORT_SEGMENT = "" if NO_PORT else f":{PORT}"
-    
-    # Clean up trailing slashes for consistency
     FQDN = FQDN.rstrip('/')
     URL = f"{PROTOCOL}://{FQDN}{PORT_SEGMENT}/"
-else:
+elif FQDN:
     URL = FQDN
-
+else:
+    URL = ""
