@@ -84,3 +84,7 @@ elif FQDN:
     URL = FQDN
 else:
     URL = ""
+
+# 🔄 Backward Compatibility (for old plugin files)
+VERIFIED_LOG = LOG_CHANNEL  # Use LOG_CHANNEL for verified user logs
+VERIFY_EXPIRE = 3600  # Default expire time in seconds (1 hour)
