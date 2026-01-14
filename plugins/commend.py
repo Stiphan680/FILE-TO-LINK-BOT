@@ -4,7 +4,7 @@ from database.users_db import db
 from pyrogram import Client, filters, enums
 from pyrogram.errors import *
 from pyrogram.types import *
-from info import BOT_USERNAME, URL, BATCH_PROTECT_CONTENT, ADMINS, PROTECT_CONTENT, OWNER_USERNAME, SUPPORT, PICS, FILE_PIC, CHANNEL, VERIFIED_LOG, LOG_CHANNEL, FSUB, BIN_CHANNEL, VERIFY_EXPIRE, BATCH_FILE_CAPTION, FILE_CAPTION, VERIFY_IMG, QR_CODE
+from info import BOT_USERNAME, URL, BATCH_PROTECT_CONTENT, ADMINS, PROTECT_CONTENT, OWNER_USERNAME, SUPPORT, PICS, FILE_PIC, CHANNEL, LOG_CHANNEL, FSUB, BIN_CHANNEL, BATCH_FILE_CAPTION, FILE_CAPTION, VERIFY_IMG, QR_CODE
 from datetime import datetime
 from web.utils.file_properties import get_hash
 from utils import get_readable_time, verify_user, check_token, get_size
@@ -207,14 +207,13 @@ async def cb_handler(client, query):
         per_page = 7
         total_pages = (len(files) + per_page - 1) // per_page
         if not files or page < 1 or page > total_pages:
-            return await query.answer("⚠️ Nᴏ ᴍᴏʀᴇ ғɪʟᴇꜱ.", show_alert=True)
+            return await query.answer("⚠️ Nᴏ ᴍᴏʀᴇ ꜰɪʟᴇꜱ.", show_alert=True)
         start = (page - 1) * per_page
         end = start + per_page
         btns = []
         for f in files[start:end]:
             name = f["file_name"][:40]
-            btns.append([InlineKeyboardButton(name, callback_data=f"sendfile_{f['file_id']}")])
-        nav_btns = []
+            btns.append([InlineKeyboardButton(name, callback_data=f"sendfile_{f['file_id']}")])        nav_btns = []
         if page > 1:
             nav_btns.append(InlineKeyboardButton("⬅️ Bᴀᴄᴋ", callback_data=f"filespage_{page - 1}"))
         if page < total_pages:
@@ -222,7 +221,7 @@ async def cb_handler(client, query):
         nav_btns.append(InlineKeyboardButton("❌ ᴄʟᴏsᴇ ❌", callback_data="close_data"))
         btns.append(nav_btns)
         await query.message.edit_caption(
-            caption=f"📁 Tᴏᴛᴀʟ ғɪʟᴇꜱ: {len(files)} | Pᴀɢᴇ {page}/{total_pages}",
+            caption=f"📁 Tᴏᴛᴀʟ ꜰɪʟᴇꜱ: {len(files)} | Pᴀɢᴇ {page}/{total_pages}",
             reply_markup=InlineKeyboardMarkup(btns)
         )
         return await query.answer()
@@ -234,14 +233,13 @@ async def cb_handler(client, query):
         per_page = 7
         total_pages = (len(files) + per_page - 1) // per_page
         if not files or page < 1 or page > total_pages:
-            return await query.answer("⚠️ Nᴏ ᴍᴏʀᴇ ғɪʟᴇꜱ.", show_alert=True)
+            return await query.answer("⚠️ Nᴏ ᴍᴏʀᴇ ꜰɪʟᴇꜱ.", show_alert=True)
         start = (page - 1) * per_page
         end = start + per_page
         btns = []
         for f in files[start:end]:
             name = f["file_name"][:40]
-            btns.append([InlineKeyboardButton(name, callback_data=f"deletefile_{f['file_id']}")])
-        nav_btns = []
+            btns.append([InlineKeyboardButton(name, callback_data=f"deletefile_{f['file_id']}")])        nav_btns = []
         if page > 1:
             nav_btns.append(InlineKeyboardButton("⬅️ Bᴀᴄᴋ", callback_data=f"delfilespage_{page - 1}"))
         if page < total_pages:
@@ -249,7 +247,7 @@ async def cb_handler(client, query):
         nav_btns.append(InlineKeyboardButton("❌ ᴄʟᴏsᴇ ❌", callback_data="close_data"))
         btns.append(nav_btns)
         await query.message.edit_caption(
-            caption=f"📁 Tᴏᴛᴀʟ ғɪʟᴇꜱ: {len(files)} | Pᴀɢᴇ {page}/{total_pages}",
+            caption=f"📁 Tᴏᴛᴀʟ ꜰɪʟᴇꜱ: {len(files)} | Pᴀɢᴇ {page}/{total_pages}",
             reply_markup=InlineKeyboardMarkup(btns)
         )
         return await query.answer()
@@ -259,7 +257,7 @@ async def cb_handler(client, query):
         user_id = query.from_user.id
         file_data = await db.files.find_one({"file_id": file_id, "user_id": user_id})
         if not file_data:
-            return await query.answer("⚠️ Nᴏ ᴍᴏʀᴇ ғɪʟᴇꜱ.", show_alert=True)
+            return await query.answer("⚠️ Nᴏ ᴍᴏʀᴇ ꜰɪʟᴇꜱ.", show_alert=True)
         try:
             original_message = await client.get_messages(BIN_CHANNEL, file_id)
             media = original_message.document or original_message.video or original_message.audio
@@ -284,16 +282,16 @@ async def cb_handler(client, query):
         user_id = query.from_user.id
         file_data = await db.files.find_one({"file_id": file_msg_id})
         if not file_data:
-            return await query.answer("❌ Fɪʟᴇ ɴᴏᴛ ғᴏᴜɴᴅ ᴏʀ ᴀʟʀᴇᴀᴅʏ ᴅᴇʟᴇᴛᴇᴅ.", show_alert=True)
+            return await query.answer("❌ Fɪʟᴇ ɴᴏᴛ ꜰᴏᴜɴᴅ ᴏʀ ᴀʟʀᴇᴀᴅʏ ᴅᴇʟᴇᴛᴇᴅ.", show_alert=True)
         if file_data["user_id"] != user_id:
-            return await query.answer("⚠️ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴜᴛʜᴏʀɪᴢᴇᴅ ᴛᴏ ᴅᴇʟᴇᴛᴇ ᴛʜɪꜱ ғɪʟᴇ!", show_alert=True)
+            return await query.answer("⚠️ Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴜᴛʜᴏʀɪᴢᴇᴅ ᴛᴏ ᴅᴇʟᴇᴛᴇ ᴛʜɪꜱ ꜰɪʟᴇ!", show_alert=True)
         await db.files.delete_one({"file_id": file_msg_id})
         try:
             await client.delete_messages(BIN_CHANNEL, file_msg_id)
         except:
             pass
-        await query.answer("✅ Fɪʟᴇ ᴅᴇʟᴇᴛᴇᴅ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ!", show_alert=True)
-        await query.message.edit_caption("🗑️ Fɪʟᴇ ʜᴀꜱ ʙᴇᴇɴ ᴅᴇʟᴇᴛᴇᴅ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ.")
+        await query.answer("✅ Fɪʟᴇ ᴅᴇʟᴇᴛᴇᴅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ!", show_alert=True)
+        await query.message.edit_caption("🗑️ Fɪʟᴇ ʜᴀꜱ ʙᴇᴇɴ ᴅᴇʟᴇᴛᴇᴅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ.")
 	
 
 @Client.on_message(filters.private & filters.command("files"))
@@ -301,7 +299,7 @@ async def list_user_files(client, message: Message):
     user_id = message.from_user.id
     files = await db.files.find({"user_id": user_id}).to_list(length=100)
     if not files:
-        return await message.reply_text("❌ Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ᴜᴘʟᴏᴀᴅᴇᴅ ᴀɴʏ ғɪʟᴇꜱ.")
+        return await message.reply_text("❌ Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ᴜᴘʟᴏᴀᴅᴇᴅ ᴀɴʏ ꜰɪʟᴇꜱ.")
     page = 1
     per_page = 7
     start = (page - 1) * per_page
@@ -310,14 +308,13 @@ async def list_user_files(client, message: Message):
     btns = []
     for f in files[start:end]:
         name = f["file_name"][:40]
-        btns.append([InlineKeyboardButton(name, callback_data=f"sendfile_{f['file_id']}")])
-    nav_btns = []
+        btns.append([InlineKeyboardButton(name, callback_data=f"sendfile_{f['file_id']}")])    nav_btns = []
     if page < total_pages:
         nav_btns.append(InlineKeyboardButton("➡️ Nᴇxᴛ", callback_data=f"filespage_{page + 1}"))
     nav_btns.append(InlineKeyboardButton("❌ ᴄʟᴏsᴇ ❌", callback_data="close_data"))
     btns.append(nav_btns)
     await message.reply_photo(photo=FILE_PIC,
-        caption=f"📁 Tᴏᴛᴀʟ ғɪʟᴇꜱ: {len(files)} | Pᴀɢᴇ {page}/{total_pages}",
+        caption=f"📁 Tᴏᴛᴀʟ ꜰɪʟᴇꜱ: {len(files)} | Pᴀɢᴇ {page}/{total_pages}",
         reply_markup=InlineKeyboardMarkup(btns)
     )
 
@@ -326,7 +323,7 @@ async def delete_files_list(client, message):
     user_id = message.from_user.id
     files = await db.files.find({"user_id": user_id}).to_list(length=100)
     if not files:
-        return await message.reply_text("❌ Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ᴜᴘʟᴏᴀᴅᴇᴅ ᴀɴʏ ғɪʟᴇꜱ.")
+        return await message.reply_text("❌ Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ᴜᴘʟᴏᴀᴅᴇᴅ ᴀɴʏ ꜰɪʟᴇꜱ.")
     page = 1
     per_page = 7
     start = (page - 1) * per_page
@@ -335,14 +332,13 @@ async def delete_files_list(client, message):
     btns = []
     for f in files[start:end]:
         name = f["file_name"][:40]
-        btns.append([InlineKeyboardButton(name, callback_data=f"deletefile_{f['file_id']}")])
-    nav_btns = []
+        btns.append([InlineKeyboardButton(name, callback_data=f"deletefile_{f['file_id']}")])    nav_btns = []
     if page < total_pages:
         nav_btns.append(InlineKeyboardButton("➡️ Nᴇxᴛ", callback_data=f"delfilespage_{page + 1}"))
     nav_btns.append(InlineKeyboardButton("❌ ᴄʟᴏsᴇ ❌", callback_data="close_data"))
     btns.append(nav_btns)
     await message.reply_photo(photo=FILE_PIC,
-        caption=f"📁 Tᴏᴛᴀʟ ғɪʟᴇꜱ: {len(files)} | Pᴀɢᴇ {page}/{total_pages}",
+        caption=f"📁 Tᴏᴛᴀʟ ꜰɪʟᴇꜱ: {len(files)} | Pᴀɢᴇ {page}/{total_pages}",
         reply_markup=InlineKeyboardMarkup(btns)
     )
 
