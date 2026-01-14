@@ -77,9 +77,21 @@ async def start():
     now = datetime.now(tz)
     time = now.strftime("%H:%M:%S %p")
     StreamBot.loop.create_task(check_expired_premium(StreamBot))
-    await StreamBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
-    await StreamBot.send_message(chat_id=ADMINS[0], text='<b>ʙᴏᴛ ʀᴇsᴛᴀʀᴛᴇᴅ !!</b>')
-    await StreamBot.send_message(chat_id=SUPPORT_GROUP, text=f"<b>{me.mention} ʀᴇsᴛᴀʀᴛᴇᴅ 🤖</b>")
+    
+    # Send restart notification to LOG_CHANNEL
+    if LOG_CHANNEL:
+        try:
+            await StreamBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
+        except Exception as e:
+            logging.error(f"Failed to send message to LOG_CHANNEL: {e}")
+    
+    # Send restart notification to first admin
+    if ADMINS:
+        try:
+            await StreamBot.send_message(chat_id=ADMINS[0], text='<b>ʙᴏᴛ ʀᴇsᴛᴀʀᴛᴇᴅ !!</b>')
+        except Exception as e:
+            logging.error(f"Failed to send message to admin: {e}")
+    
     app = web.AppRunner(await web_server())
     await app.setup()
     bind_address = "0.0.0.0"
